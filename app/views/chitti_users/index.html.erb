@@ -1,0 +1,33 @@
+<%if flash[:notice].present?%>
+	<%= flash[:notice]%>
+<%end%>
+<table border = 1>
+	<th>Name</th>
+	<th>Email</th>
+	<th>Phone</th>
+	<th>Chitti No:</th>
+	<th>Chitti Name</th>
+	<th>CurrentInstallmentNo</th>
+	<th>TotalPaid</th>
+	<th>RemainingAmount</th>
+	<%unless @chitti_users.blank?%>
+		<%@chitti_users.each do |chitti_user| %>
+			<tr>
+				<td><%=chitti_user.user.name%></td>
+				<td><%=chitti_user.user.email%></td>
+				<td><%=chitti_user.user.mob_no%></td>
+				<td><%=get_chitti_no(chitti_user.chitti_detail_id)%></td>
+				<td><%=get_chitti_name(chitti_user.chitti_detail_id)%></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		<%end%>
+		</table></br>
+		<table>
+			<tr><td><%=link_to "Add Chitti User",new_chitti_user_path(id: @chitti_users.first.chitti_detail_id)%></td></tr>
+			<tr><td><%=link_to "Chitti List",dashboard_index_path%></td></tr>
+			<tr><td><%=link_to "Logout", destroy_user_session_path, :method => :delete%></td></tr>
+		</table>
+	<%end%>
+</br>
